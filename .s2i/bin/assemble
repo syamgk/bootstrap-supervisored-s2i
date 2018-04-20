@@ -64,12 +64,8 @@ if [ -f /opt/app-root/etc/generate_container_user ]; then
     echo "source /opt/app-root/etc/generate_container_user" >> /opt/app-root/etc/scl_enable
 fi
 
-# Generate default supervisord.conf file.
-
-echo_supervisord_conf | \
-    sed -e 's%^logfile=/tmp/supervisord.log%logfile=/dev/fd/1%' \
-        -e 's%^logfile_maxbytes=50MB%logfile_maxbytes=0%' > \
-        /opt/app-root/supervisor/supervisord.conf
+# Copy supervisord conf files
+cp -r $S2I_DESTINATION/src/configs/* /opt/app-root/etc/
 
 # Cleanup S2I files from /tmp, but leave an empty directory behind so
 # don't break S2I assemble script being run later. Note that some S2I
