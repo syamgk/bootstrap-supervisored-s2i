@@ -10,6 +10,12 @@ if [ ! -f /opt/app-root/etc/supervisord.conf ]; then
     cp /opt/app-root/supervisor/supervisord.conf /opt/app-root/etc/supervisord.conf
 fi
 
+
+# Some s2i assemble scripts are copying artifacts out of the /opt/app-root.
+# Those directories are not backed by volumes and data is lost once container is restarted.
+# Running assemble script when container is restarted previously deployed application is running again. 
+/opt/app-root/bin/assemble-and-restart.sh
+
 # Startup supervisord against the configuration and keep it in the
 # foreground so becomes process ID 1 for the container.
 
