@@ -1,6 +1,9 @@
 #!/bin/bash
 
+set -e
+
 # s2i fails when /tmp/src/ is empty
+mkdir -p /tmp/src
 touch /tmp/src/.dummy
 
 # run s2i assemble script from source directory if it has been overridden  there
