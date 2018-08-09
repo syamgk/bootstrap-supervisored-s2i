@@ -15,6 +15,7 @@ PATH=/usr/bin:$PATH
 # the per user Python area is located under /opt/app-root/.local.
 
 HOME=/opt/app-root
+mkdir -p $HOME
 
 # Install pip for Python 2.7.
 

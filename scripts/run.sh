@@ -6,5 +6,9 @@ set -e
 if [ -f /opt/app-root/src/.s2i/bin/run ]; then
     exec /opt/app-root/src/.s2i/bin/run
 else
-    exec /usr/libexec/s2i/run
+    if [[ -z "${STI_SCRIPTS_PATH}" ]]; then
+        exec ${STI_SCRIPTS_PATH}/run
+    else
+        exec run
+    fi
 fi

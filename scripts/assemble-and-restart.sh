@@ -10,7 +10,11 @@ touch /tmp/src/.dummy
 if [ -f /opt/app-root/src/.s2i/bin/assemble ]; then
     /opt/app-root/src/.s2i/bin/assemble
 else
-    /usr/libexec/s2i/assemble
+    if [[ -z "${STI_SCRIPTS_PATH}" ]]; then
+        exec ${STI_SCRIPTS_PATH}/assemble
+    else
+        exec assemble
+    fi
 fi
 
 # restart run process
